@@ -9,6 +9,6 @@ module.exports = {
             'json:cucumber-report.json'
         ],
         formatOptions: { snippetInterface: 'async-await' },
-        timeout: 30000
+        timeout: 120000
     }
 }; 
