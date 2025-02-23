@@ -12,6 +12,8 @@ class LoginPage extends BasePage {
         this.loggedInText = 'a:has-text("Logged in as")';
         this.deleteAccountButton = 'a[href="/delete_account"]';
         this.accountDeletedText = 'h2.title';
+        this.logoutButton = 'a[href="/logout"]';
+        this.loginPageUrl = '/login';
     }
 
     async navigateToLogin() {
@@ -76,6 +78,16 @@ class LoginPage extends BasePage {
         await this.page.waitForSelector(this.errorMessage, { state: 'visible', timeout: 10000 });
         const text = await this.page.locator(this.errorMessage).textContent();
         return text.includes('Your email or password is incorrect!');
+    }
+
+    async clickLogoutButton() {
+        await this.page.click(this.logoutButton);
+        await this.page.waitForLoadState('networkidle');
+    }
+
+    async verifyLoginPage() {
+        await this.page.waitForURL((url) => url.includes(this.loginPageUrl));
+        return await this.page.url().includes(this.loginPageUrl);
     }
 }
 
