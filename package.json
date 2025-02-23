@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:cucumber": "cucumber-js && node reporter.js",
-    "test:cart": "cucumber-js features/add_to_cart.feature && node reporter.js",
-    "test:login": "cucumber-js features/login.feature && node reporter.js",
+    "test:cucumber": "cucumber-js && node reporter.js && start reports/cucumber-report.html",
+    "test:cart": "cucumber-js features/add_to_cart.feature && node reporter.js && start reports/cucumber-report.html",
+    "test:login": "cucumber-js features/login.feature && node reporter.js && start reports/cucumber-report.html",
+    "test:quantity": "cucumber-js features/verify_product_quantity.feature && node reporter.js && start reports/cucumber-report.html",
     "test:specific": "cucumber-js",
-    "test:parallel": "cucumber-js --parallel 2 && node reporter.js",
-    "test:parallel-all": "cucumber-js --parallel 4 features/**/*.feature && node reporter.js"
+    "test:run": "cucumber-js features/%npm_config_test%.feature && node reporter.js && start reports/cucumber-report.html",
+    "test:report": "node reporter.js && start reports/cucumber-report.html"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "@cucumber/pretty-formatter": "^1.0.1",
     "@playwright/test": "^1.50.1",
     "@types/node": "^22.13.5",
-    "cucumber-html-reporter": "^7.2.0"
+    "cucumber-html-reporter": "^7.2.0",
+    "open": "^10.1.0"
   }
 }

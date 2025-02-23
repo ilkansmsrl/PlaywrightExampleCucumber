@@ -6,15 +6,18 @@ const options = {
     output: 'reports/cucumber-report.html',
     reportSuiteAsScenarios: true,
     scenarioTimestamp: true,
-    launchReport: true,
+    launchReport: false,
     metadata: {
         "App Version": "1.0.0",
         "Test Environment": "Test",
-        "Browser": "Chrome",
+        "Browser": "Chrome (Headless)",
         "Platform": "Windows 10",
-        "Parallel": "Scenarios",
+        "Parallel": "No",
         "Executed": "Remote"
-    }
+    },
+    failedSummaryReport: true,
+    brandTitle: "Test Otomasyon Raporu",
+    name: "Playwright-Cucumber Test Sonuçları"
 };
 
 reporter.generate(options); 

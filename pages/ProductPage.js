@@ -13,6 +13,11 @@ class ProductPage extends BasePage {
         this.productPrices = 'td[class="cart_price"] p';
         this.productQuantities = 'td[class="cart_quantity"] button';
         this.productTotalPrices = 'td[class="cart_total"] p';
+        this.viewProductButton = '//a[contains(text(), "View Product")][1]';
+        this.productQuantityInput = '#quantity';
+        this.productDetailAddToCartButton = 'button.cart';
+        this.cartQuantity = '.cart_quantity button';
+        this.allProducts = '.features_items .product-image-wrapper';
     }
 
     async clickProductsButton() {
@@ -87,6 +92,40 @@ class ProductPage extends BasePage {
             quantities,
             totalPrices
         };
+    }
+
+    async verifyAllProductsVisible() {
+        await this.page.waitForSelector(this.allProducts, { state: 'visible', timeout: 10000 });
+        const productCount = await this.page.locator(this.allProducts).count();
+        return productCount > 0;
+    }
+
+    async clickViewProduct() {
+        await this.page.waitForSelector(this.viewProductButton, { state: 'visible', timeout: 10000 });
+        await this.page.click(this.viewProductButton);
+        await this.page.waitForLoadState('networkidle');
+    }
+
+    async verifyProductDetailPage() {
+        await this.page.waitForSelector(this.productQuantityInput, { state: 'visible', timeout: 10000 });
+        return await this.page.isVisible(this.productQuantityInput);
+    }
+
+    async setProductQuantity(quantity) {
+        await this.page.waitForSelector(this.productQuantityInput, { state: 'visible', timeout: 10000 });
+        await this.page.fill(this.productQuantityInput, ''); // Önce mevcut değeri temizle
+        await this.page.fill(this.productQuantityInput, quantity);
+    }
+
+    async addToCartFromDetail() {
+        await this.page.click(this.productDetailAddToCartButton);
+        await this.page.waitForSelector(this.viewCartButton, { state: 'visible', timeout: 10000 });
+    }
+
+    async verifyCartQuantity(expectedQuantity) {
+        await this.page.waitForSelector(this.cartQuantity, { state: 'visible', timeout: 10000 });
+        const quantity = await this.page.locator(this.cartQuantity).textContent();
+        return quantity === expectedQuantity;
     }
 }
 
