@@ -1,20 +1,7 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 const LoginPage = require('../../pages/LoginPage');
-
-async function forAllBrowsers(pages, action) {
-    const results = [];
-    for (const [browserType, page] of pages.entries()) {
-        try {
-            const result = await action(page, browserType);
-            results.push({ browserType, result, success: true });
-        } catch (error) {
-            results.push({ browserType, error, success: false });
-            console.error(`${browserType} browser'ında hata:`, error);
-        }
-    }
-    return results;
-}
+const { forAllBrowsers } = require('../support/common');
 
 Given('Kullanıcı login sayfasına gider', async function () {
     await forAllBrowsers(this.pages, async (page) => {

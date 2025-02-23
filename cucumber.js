@@ -9,6 +9,11 @@ module.exports = {
             'json:cucumber-report.json'
         ],
         formatOptions: { snippetInterface: 'async-await' },
-        timeout: 120000
+        timeout: 120000,
+        parallel: 0,
+        retry: 0,
+        worldParameters: {
+            browserCount: 1
+        }
     }
 }; 

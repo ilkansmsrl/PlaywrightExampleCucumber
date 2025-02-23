@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:cucumber": "cucumber-js && node reporter.js"
+    "test:cucumber": "cucumber-js && node reporter.js",
+    "test:cart": "cucumber-js features/add_to_cart.feature && node reporter.js",
+    "test:login": "cucumber-js features/login.feature && node reporter.js",
+    "test:specific": "cucumber-js",
+    "test:parallel": "cucumber-js --parallel 2 && node reporter.js",
+    "test:parallel-all": "cucumber-js --parallel 4 features/**/*.feature && node reporter.js"
   },
   "keywords": [],
   "author": "",
