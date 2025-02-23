@@ -6,7 +6,7 @@ class LoginPage extends BasePage {
         this.emailInput = 'input[data-qa="login-email"]';
         this.passwordInput = 'input[data-qa="login-password"]';
         this.loginButton = 'button[data-qa="login-button"]';
-        this.errorMessage = '//section[@id="form"]//form[@action="/login"]/p[contains(text(), "Your email or password is incorrect!")]';
+        this.errorMessage = 'p[style*="color: red"]';
         this.signupLoginButton = 'a[href="/login"]';
         this.loginText = '.login-form h2';
         this.loggedInText = 'a:has-text("Logged in as")';
@@ -70,6 +70,12 @@ class LoginPage extends BasePage {
     async verifyAccountDeleted() {
         const text = await this.page.locator(this.accountDeletedText).textContent();
         return text.includes('ACCOUNT DELETED!');
+    }
+
+    async verifyIncorrectLoginError() {
+        await this.page.waitForSelector(this.errorMessage, { state: 'visible', timeout: 10000 });
+        const text = await this.page.locator(this.errorMessage).textContent();
+        return text.includes('Your email or password is incorrect!');
     }
 }
 

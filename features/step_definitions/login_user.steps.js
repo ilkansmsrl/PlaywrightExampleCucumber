@@ -18,4 +18,12 @@ When('Login butonuna tıklar', async function () {
     });
 });
 
+Then('Your email or password is incorrect! hata mesajının görünür olduğunu doğrular', async function () {
+    await forAllBrowsers(this.pages, async (page) => {
+        const loginPage = new LoginPage(page);
+        const isErrorVisible = await loginPage.verifyIncorrectLoginError();
+        expect(isErrorVisible).toBeTruthy();
+    });
+});
+
 // Not: Bazı step tanımlamaları register_user.steps.js ile ortak olduğu için tekrar tanımlamıyoruz 
